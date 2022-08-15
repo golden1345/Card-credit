@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 
 <head>
     <meta charset="UTF-8">
@@ -49,7 +49,7 @@
             </div>
 
             <div class="pay-block">
-                <button class="pay__button disable" type="submit" disabled='disables'>Оплатить</button>
+                <button class="pay__button" type="submit">Оплатить</button>
                 <p class="offer-wrap">Нажимая на кнопку «Перевести», вы соглашаетесь с <a href="http://">условиями
                         оферты</a></p>
             </div>
@@ -86,6 +86,7 @@
                     $("button[type='submit']").attr('disabled', 'disabled');
                 } else {
                     $("button[type='submit']").removeAttr('disabled');
+                    $("button[type='submit']").attr('active','active');
                 }
             });
         });
@@ -156,6 +157,20 @@
             );
         }
 
+        //Проверка даты
+        jQuery.validator.setDefaults({
+                debug: true,
+                success: "valid"
+            });
+            jQuery.validator.addMethod(
+                "trioDate",
+                function (value, element) {
+                    return value.match(/^\d{1,2}\/\d{2}$/);
+                },
+                "Неверный формат MM / YY"
+            );
+            
+
         // Валидатор
         $(document).ready(function () {
             $("#card").validate({
@@ -165,6 +180,7 @@
                     },
                     mounth: {
                         required: true,
+                        trioDate: true
                     },
                     cvv: {
                         required: true,
