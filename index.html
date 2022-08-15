@@ -38,18 +38,18 @@
                             <div class="hint">Три цифры с обратной стороны карты</div>
                         </div>
                         <label for="">CVV / CVC</label>
-                        <input type="text" class="form-field" id="cvv" name="cvv" maxlength="3" placeholder="123">
+                        <input type="text" class="form-field" id="cvv" name="cvv" minlength="3" maxlength="3" placeholder="123">
                     </div>
                 </div>
             </div>
 
             <div class="check__wrap form-group">
                 <input type="checkbox" id="checkbox1" name="checkbox" checked>
-                <label for="checkbox1">Сохранить карту для следующих покупокль</label>
+                <label for="checkbox1">Сохранить карту для следующих покупок</label>
             </div>
 
             <div class="pay-block">
-                <button class="pay__button" type="submit">Оплатить</button>
+                <button class="pay__button" type="submit" onclick="confirmCard()">Оплатить</button>
                 <p class="offer-wrap">Нажимая на кнопку «Перевести», вы соглашаетесь с <a href="http://">условиями
                         оферты</a></p>
             </div>
@@ -177,6 +177,7 @@
                 rules: {
                     card_number: {
                         required: true,
+                        creditcard: true 
                     },
                     mounth: {
                         required: true,
@@ -189,6 +190,7 @@
                 messages: {
                     card_number: {
                         required: "Поле обязательно",
+                        creditcard: "Неверный номер карты"
                     },
                     mounth: {
                         required: "Поле обязательно",
@@ -200,6 +202,17 @@
             });
 
         });
+
+        function confirmCard() {
+            if (confirm("Данные верные?")) {
+                alert("Спасибо за оплату");
+                document.getElementById("card").reset();
+                $("button[type='submit']").attr('disabled', 'disabled');
+            } else {
+                alert("Вы нажали кнопку отмена")
+                $("button[type='submit']").attr('disabled', 'disabled');
+            }
+            }
     </script>
 </body>
 
