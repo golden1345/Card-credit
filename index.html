@@ -38,7 +38,8 @@
                             <div class="hint">Три цифры с обратной стороны карты</div>
                         </div>
                         <label for="">CVV / CVC</label>
-                        <input type="text" class="form-field" id="cvv" name="cvv" minlength="3" maxlength="3" placeholder="123">
+                        <input type="text" class="form-field" id="cvv" name="cvv" minlength="3" maxlength="3"
+                            placeholder="123">
                     </div>
                 </div>
             </div>
@@ -76,7 +77,7 @@
     <script src="js/jquery.validate.js"></script>
 
     <script>
-        //Проверка заполнености полей
+        //Проверка заполнености полей 5555555555554444
         $(document).ready(function () {
             $('input.form-field').change(function () {
                 if ($('input.form-field').map(function (index, domElement) {
@@ -84,9 +85,14 @@
                         return domElement;
                 }).length < 3) {
                     $("button[type='submit']").attr('disabled', 'disabled');
+                    $("button[type='submit']").html('');
+                    $("button[type='submit']").html('<img class="spiner" src="img/Spinner-24x24.svg" />');
                 } else {
                     $("button[type='submit']").removeAttr('disabled');
-                    $("button[type='submit']").attr('active','active');
+                    $("button[type='submit']").attr('active', 'active');
+                    $("button[type='submit']").html('');
+                    $("button[type='submit']").html('Оплатить');
+
                 }
             });
         });
@@ -107,7 +113,7 @@
                     .replace(/(.{4})/g, "$1 ")
             );
         });
-        
+
         //Алгоритм луна
         document.forms.formCard.onsubmit = function () {
             var card_number = this.card_number.value;
@@ -130,7 +136,7 @@
             return false;
         };
 
-        
+
         //Формат даты
         function formatString(e) {
             var inputChar = String.fromCharCode(event.keyCode);
@@ -159,17 +165,17 @@
 
         //Проверка даты
         jQuery.validator.setDefaults({
-                debug: true,
-                success: "valid"
-            });
-            jQuery.validator.addMethod(
-                "trioDate",
-                function (value, element) {
-                    return value.match(/^\d{1,2}\/\d{2}$/);
-                },
-                "Неверный формат MM / YY"
-            );
-            
+            debug: true,
+            success: "valid"
+        });
+        jQuery.validator.addMethod(
+            "trioDate",
+            function (value, element) {
+                return value.match(/^\d{1,2}\/\d{2}$/);
+            },
+            "Неверный формат MM / YY"
+        );
+
 
         // Валидатор
         $(document).ready(function () {
@@ -177,7 +183,7 @@
                 rules: {
                     card_number: {
                         required: true,
-                        creditcard: true 
+                        creditcard: true
                     },
                     mounth: {
                         required: true,
@@ -208,11 +214,13 @@
                 alert("Спасибо за оплату");
                 document.getElementById("card").reset();
                 $("button[type='submit']").attr('disabled', 'disabled');
+                $("button[type='submit']").html('Оплатить');
             } else {
                 alert("Вы нажали кнопку отмена")
                 $("button[type='submit']").attr('disabled', 'disabled');
+                $("button[type='submit']").html('Оплатить');
             }
-            }
+        }
     </script>
 </body>
 

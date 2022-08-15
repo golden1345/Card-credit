@@ -267,6 +267,17 @@ footer {
   background: #FF335F;
   border: 2px solid #FF335F; }
 
+.spiner {
+  animation-name: rotate;
+  animation-duration: 5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear; }
+
+@keyframes rotate {
+  from {
+    transform: rotate(-360deg); }
+  to {
+    transform: rotate(360deg); } }
 @media (max-width: 393px) {
   .form-group input:checked + label:after {
     top: 10px; } }
